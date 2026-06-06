@@ -1334,7 +1334,7 @@ function renderTrackResult(d) {
           <div class="stepper">
             ${steps.map((s,i)=>`
               <div class="step ${i<si?'done':i===si?'active':''}">
-                <div class="step-dot">${i<si?'<i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i>':'${i+1}'}</div>
+                <div class="step-dot">${i < si ? '<i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i>' : i + 1}</div>
                 <div class="step-lbl">${s}</div>
               </div>`).join('')}
           </div>
