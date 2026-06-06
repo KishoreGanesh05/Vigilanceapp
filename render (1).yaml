@@ -40,11 +40,9 @@ services:
   - type: web
     name: vigilance-frontend
     runtime: static
-    # region removed — static sites are globally distributed via CDN
-    plan: free
     rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist        # change to ./build if using Create React App
+    buildCommand: ""
+    staticPublishPath: .
     envVars:
       - key: VITE_API_URL
         sync: false                  # set to your backend URL after first deploy
