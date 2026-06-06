@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sathya.Watch — Citizen Vigilance</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+</head>
+<body>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
@@ -424,6 +433,425 @@
     font-size: 12px; color: var(--danger);
     display: flex; gap: 8px; align-items: center; margin-bottom: 16px;
   }
+
+  /* ── MODERATOR DASHBOARD ── */
+  .mod-login {
+    max-width: 380px;
+    margin: 40px auto;
+    text-align: center;
+  }
+  .mod-login-icon {
+    width: 56px; height: 56px;
+    background: var(--ink);
+    border-radius: 4px;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .mod-login-icon i { color: var(--paper); font-size: 26px; }
+  .mod-login input[type=password] {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    padding: 10px 12px;
+    font-family: var(--ff-mono);
+    font-size: 13px;
+    color: var(--ink);
+    outline: none;
+    width: 100%;
+    letter-spacing: 3px;
+    transition: border-color 0.15s;
+    margin-bottom: 12px;
+  }
+  .mod-login input[type=password]:focus { border-color: var(--ink); }
+
+  .mod-stats {
+    display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .mod-stat {
+    flex: 1; min-width: 100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .mod-stat-num {
+    font-family: var(--ff-display);
+    font-size: 28px;
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .mod-stat-label {
+    font-family: var(--ff-mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .mod-table-wrap {
+    overflow-x: auto;
+    border: 1.5px solid var(--ink);
+    border-radius: 2px;
+  }
+  .mod-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .mod-table th {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 12px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .mod-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .mod-table tr:last-child td { border-bottom: none; }
+  .mod-table tr:hover td { background: rgba(200,115,10,0.04); }
+
+  .mod-desc {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .mod-evidence-link {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2px;
+  }
+  .mod-evidence-link:hover { text-decoration: underline; }
+
+  .mod-status-select {
+    appearance: none;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    padding: 5px 24px 5px 8px;
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    cursor: pointer;
+    outline: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b6660' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    transition: border-color 0.15s;
+  }
+  .mod-status-select:focus { border-color: var(--ink); }
+  .mod-status-select.saving { opacity: 0.5; pointer-events: none; }
+
+  .mod-id {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .mod-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .mod-refresh-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 5px 12px;
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+  .mod-refresh-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+  .mod-logout-btn {
+    background: none;
+    border: none;
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--danger);
+    padding: 5px 0;
+    transition: opacity 0.15s;
+  }
+  .mod-logout-btn:hover { opacity: 0.7; }
+
+  .mod-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 10px;
+  }
+
+  .mod-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 10px 18px;
+    border-radius: 2px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 1000;
+    pointer-events: none;
+  }
+  .mod-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mod-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .mod-filters select,
+  .mod-filters input[type=text] {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    padding: 7px 10px;
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--ink);
+    outline: none;
+  }
+  .mod-filters input[type=text] { flex: 1; min-width: 160px; }
+  .mod-filters select:focus,
+  .mod-filters input[type=text]:focus { border-color: var(--ink); }
+
+  .mod-loading {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--muted);
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .mod-view-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 4px 8px;
+    font-family: var(--ff-mono);
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .mod-view-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+  .mod-has-notes {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+
+  .mod-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,14,13,0.55);
+    z-index: 900;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-y: auto;
+  }
+  .mod-overlay.open { display: flex; }
+
+  .mod-detail {
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 2px;
+    width: 100%;
+    max-width: 640px;
+    margin: auto;
+  }
+  .mod-detail-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .mod-detail-header h2 {
+    font-family: var(--ff-display);
+    font-size: 22px;
+    letter-spacing: 1px;
+    font-weight: normal;
+  }
+  .mod-detail-close {
+    background: none;
+    border: 1px solid rgba(245,242,236,0.35);
+    color: var(--paper);
+    border-radius: 2px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .mod-detail-close:hover { background: rgba(255,255,255,0.1); }
+
+  .mod-detail-body { padding: 18px; }
+  .mod-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+    margin-bottom: 18px;
+  }
+  .mod-detail-field label {
+    display: block;
+    font-family: var(--ff-mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .mod-detail-field span,
+  .mod-detail-field p {
+    font-size: 13px;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+  .mod-detail-field.full { grid-column: 1 / -1; }
+  .mod-detail-desc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 2px;
+    white-space: pre-wrap;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .mod-evidence-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .mod-evidence-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+  .mod-evidence-item a {
+    color: var(--accent);
+    font-family: var(--ff-mono);
+    word-break: break-all;
+    text-decoration: none;
+  }
+  .mod-evidence-item a:hover { text-decoration: underline; }
+  .mod-evidence-hash {
+    font-family: var(--ff-mono);
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 4px;
+    word-break: break-all;
+  }
+
+  .mod-detail-notes textarea {
+    width: 100%;
+    min-height: 80px;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    padding: 10px;
+    font-family: var(--ff-body);
+    font-size: 13px;
+    resize: vertical;
+    outline: none;
+    margin-top: 6px;
+  }
+  .mod-detail-notes textarea:focus { border-color: var(--ink); }
+
+  .mod-detail-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .mod-detail-actions select {
+    appearance: none;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    padding: 8px 28px 8px 10px;
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b6660' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+  }
+
+  .mod-token {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    word-break: break-all;
+    background: var(--surface);
+    padding: 6px 8px;
+    border-radius: 2px;
+    display: inline-block;
+  }
 </style>
 
 <div id="app">
@@ -634,20 +1062,126 @@
       </div>
     </div>
 
+    <!-- ── PAGE: MODERATOR ── -->
+    <div id="page-mod" style="display:none;">
+      <!-- Login Screen -->
+      <div id="mod-login-screen" class="mod-login">
+        <div class="mod-login-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+        <div class="section-title" style="margin-bottom:6px;">Moderator Access</div>
+        <p class="section-desc" style="margin:0 auto 20px; text-align:center;">Enter your moderator secret key to access the admin dashboard.</p>
+        <input type="password" id="mod-password" placeholder="Enter secret key…" onkeydown="if(event.key==='Enter') modLogin()" />
+        <div id="mod-login-error" class="error-strip" style="display:none;">
+          <i class="ti ti-alert-circle" aria-hidden="true"></i>
+          <span id="mod-login-error-msg"></span>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="modLogin()">
+          <span id="mod-login-label">Authenticate</span>
+        </button>
+        <p style="margin-top:16px;font-size:12px;">
+          <a href="#" onclick="showPage('report');return false;" style="color:var(--muted);font-family:var(--ff-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;">← Back to public site</a>
+        </p>
+      </div>
+
+      <!-- Dashboard -->
+      <div id="mod-dashboard" style="display:none;">
+        <div class="section-label">Admin Panel</div>
+        <div class="section-title">All Reports</div>
+        <p class="section-desc">Review citizen reports, view evidence, and update statuses.</p>
+
+        <div id="mod-stats" class="mod-stats"></div>
+
+        <div class="mod-filters">
+          <select id="mod-filter-status" onchange="modLoadReports()">
+            <option value="">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="reviewed">Reviewed</option>
+            <option value="escalated">Escalated</option>
+            <option value="resolved">Resolved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+          <input type="text" id="mod-search" placeholder="Search category, location, description…" oninput="modApplyFilters()" />
+        </div>
+
+        <div class="mod-toolbar">
+          <button class="mod-refresh-btn" onclick="modLoadReports()"><i class="ti ti-refresh" aria-hidden="true"></i> Refresh</button>
+          <button class="mod-logout-btn" onclick="modLogout()"><i class="ti ti-logout" aria-hidden="true"></i> Logout</button>
+        </div>
+
+        <div id="mod-table-container"></div>
+      </div>
+    </div>
+
+    <!-- Report detail modal -->
+    <div id="mod-overlay" class="mod-overlay" onclick="if(event.target===this) modCloseDetail()">
+      <div class="mod-detail" role="dialog" aria-labelledby="mod-detail-title">
+        <div class="mod-detail-header">
+          <h2 id="mod-detail-title">Report Detail</h2>
+          <button class="mod-detail-close" onclick="modCloseDetail()" aria-label="Close">&times;</button>
+        </div>
+        <div class="mod-detail-body" id="mod-detail-body"></div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="mod-toast" class="mod-toast"></div>
+
   </div>
 </div>
 
 <script>
 const API = 'https://vigilance-api.onrender.com';
+const PUBLIC_PAGES = ['report', 'track', 'about'];
 let selectedFiles = [];
 let currentToken = null;
 
-function showPage(p) {
-  ['report','track','about'].forEach(id => {
-    document.getElementById('page-'+id).style.display = id===p ? 'block' : 'none';
-    document.querySelectorAll('.nav-tab')[['report','track','about'].indexOf(id)].classList.toggle('active', id===p);
-  });
+function pageFromHash() {
+  const hash = location.hash.toLowerCase();
+  if (hash === '#mod') return 'mod';
+  if (hash === '#track') return 'track';
+  if (hash === '#about') return 'about';
+  return 'report';
 }
+
+function showPage(p, opts = {}) {
+  const updateHash = opts.updateHash !== false;
+
+  if (p === 'mod') {
+    PUBLIC_PAGES.forEach(id => { document.getElementById('page-' + id).style.display = 'none'; });
+    document.getElementById('page-mod').style.display = 'block';
+    document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+    if (updateHash && location.hash !== '#mod') history.replaceState(null, '', '#mod');
+    if (getModKey()) modLoadReports();
+    return;
+  }
+
+  document.getElementById('page-mod').style.display = 'none';
+  PUBLIC_PAGES.forEach(id => {
+    document.getElementById('page-' + id).style.display = id === p ? 'block' : 'none';
+  });
+  document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+  const idx = PUBLIC_PAGES.indexOf(p);
+  if (idx >= 0) document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+
+  if (updateHash) {
+    if (p === 'report') {
+      if (location.hash) history.replaceState(null, '', location.pathname);
+    } else if (location.hash !== '#' + p) {
+      history.replaceState(null, '', '#' + p);
+    }
+  }
+}
+
+function initRouting() {
+  const p = pageFromHash();
+  showPage(p, { updateHash: false });
+  if (p === 'mod' && getModKey()) modShowDashboard();
+}
+
+window.addEventListener('hashchange', () => {
+  const p = pageFromHash();
+  showPage(p, { updateHash: false });
+  if (p === 'mod' && getModKey()) modShowDashboard();
+});
 
 function handleFiles(files) {
   const allowed = ['image/jpeg','image/png','image/webp','video/mp4','audio/mpeg','application/pdf'];
@@ -697,6 +1231,7 @@ async function submitReport() {
   fd.append('description', description);
   fd.append('location', document.getElementById('f-location').value);
   fd.append('department', document.getElementById('f-department').value);
+  fd.append('incident_date', document.getElementById('f-date').value);
   selectedFiles.forEach(f => fd.append('files', f));
 
   try {
@@ -746,6 +1281,7 @@ function resetForm() {
   document.getElementById('f-description').value='';
   document.getElementById('f-location').value='';
   document.getElementById('f-department').value='';
+  document.getElementById('f-date').value='';
   document.getElementById('file-list').innerHTML='';
 }
 
@@ -799,6 +1335,7 @@ function renderTrackResult(d) {
         </div>
         ${d.location?`<div class="status-row"><span class="status-row-label">Location</span><span class="status-row-value">${d.location}</span></div>`:''}
         ${d.department?`<div class="status-row"><span class="status-row-label">Department</span><span class="status-row-value">${d.department}</span></div>`:''}
+        ${d.incident_date?`<div class="status-row"><span class="status-row-label">Incident</span><span class="status-row-value">${d.incident_date}</span></div>`:''}
         <div class="status-row">
           <span class="status-row-label">Filed on</span>
           <span class="status-row-value">${new Date(d.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</span>
@@ -827,4 +1364,302 @@ const dz = document.getElementById('drop-zone');
 dz.addEventListener('dragover', e=>{e.preventDefault(); dz.classList.add('dragging');});
 dz.addEventListener('dragleave', ()=>dz.classList.remove('dragging'));
 dz.addEventListener('drop', e=>{e.preventDefault(); dz.classList.remove('dragging'); handleFiles(e.dataTransfer.files);});
+
+// ─── MODERATOR DASHBOARD ───────────────────────────────────────────────────
+
+const CATEGORY_LABELS = {
+  bribery: 'Bribery / Demanding cash',
+  land_grab: 'Land encroachment / Grab',
+  fake_certificate: 'Fake certificate / document',
+  tender_fraud: 'Tender / procurement fraud',
+  illegal_construction: 'Illegal construction approval',
+  police_misconduct: 'Police misconduct',
+  other: 'Other',
+};
+
+let modReportsCache = [];
+let modDetailId = null;
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function modAuthHeaders() {
+  return { 'Authorization': 'Bearer ' + getModKey() };
+}
+
+function getModKey() { return sessionStorage.getItem('mod_key') || ''; }
+function setModKey(k) { sessionStorage.setItem('mod_key', k); }
+function clearModKey() { sessionStorage.removeItem('mod_key'); }
+
+function modShowToast(msg) {
+  const t = document.getElementById('mod-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function modShowDashboard() {
+  document.getElementById('mod-login-screen').style.display = 'none';
+  document.getElementById('mod-dashboard').style.display = 'block';
+}
+
+async function modLogin() {
+  const pw = document.getElementById('mod-password').value.trim();
+  if (!pw) return;
+
+  document.getElementById('mod-login-label').textContent = 'Verifying…';
+  document.getElementById('mod-login-error').style.display = 'none';
+
+  try {
+    const verifyRes = await fetch(API + '/admin/verify', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + pw },
+    });
+    if (!verifyRes.ok) {
+      const data = await verifyRes.json().catch(() => ({}));
+      throw new Error(data.error || 'Authentication failed');
+    }
+
+    setModKey(pw);
+    modShowDashboard();
+    await modLoadReports();
+  } catch (e) {
+    document.getElementById('mod-login-error').style.display = 'flex';
+    document.getElementById('mod-login-error-msg').textContent = e.message;
+  } finally {
+    document.getElementById('mod-login-label').textContent = 'Authenticate';
+  }
+}
+
+function modLogout() {
+  clearModKey();
+  modReportsCache = [];
+  modCloseDetail();
+  document.getElementById('mod-dashboard').style.display = 'none';
+  document.getElementById('mod-login-screen').style.display = 'block';
+  document.getElementById('mod-password').value = '';
+  document.getElementById('mod-login-error').style.display = 'none';
+  document.getElementById('mod-filter-status').value = '';
+  document.getElementById('mod-search').value = '';
+  showPage('report');
+}
+
+async function modLoadReports() {
+  const key = getModKey();
+  if (!key) return;
+
+  const container = document.getElementById('mod-table-container');
+  container.innerHTML = '<div class="mod-loading"><span class="spinner" style="border-color:rgba(15,14,13,0.15);border-top-color:var(--ink);width:20px;height:20px;margin-bottom:10px;"></span><br>Loading reports…</div>';
+
+  const statusFilter = document.getElementById('mod-filter-status').value;
+  const url = statusFilter ? API + '/admin/reports?status=' + encodeURIComponent(statusFilter) : API + '/admin/reports';
+
+  try {
+    const res = await fetch(url, { headers: modAuthHeaders() });
+    if (res.status === 401) { modLogout(); return; }
+    if (!res.ok) throw new Error('Failed to load');
+    const data = await res.json();
+    modReportsCache = data.reports || [];
+    modApplyFilters();
+  } catch (e) {
+    container.innerHTML = '<div class="mod-empty">Failed to load reports. Check your connection.</div>';
+  }
+}
+
+function modApplyFilters() {
+  const q = (document.getElementById('mod-search').value || '').trim().toLowerCase();
+  let filtered = modReportsCache;
+  if (q) {
+    filtered = modReportsCache.filter(r => {
+      const hay = [
+        r.category, r.department, r.location, r.description,
+        CATEGORY_LABELS[r.category] || '',
+      ].join(' ').toLowerCase();
+      return hay.includes(q);
+    });
+  }
+  modRenderReports(filtered);
+}
+
+
+function modRenderStats(reports) {
+  const counts = { pending: 0, reviewed: 0, escalated: 0, resolved: 0, rejected: 0 };
+  reports.forEach(r => { if (counts[r.status] !== undefined) counts[r.status]++; });
+  document.getElementById('mod-stats').innerHTML = [
+    { label: 'Total', num: reports.length, color: 'var(--ink)' },
+    { label: 'Pending', num: counts.pending, color: '#e8a020' },
+    { label: 'Reviewed', num: counts.reviewed, color: '#2980b9' },
+    { label: 'Escalated', num: counts.escalated, color: '#8e44ad' },
+    { label: 'Resolved', num: counts.resolved, color: 'var(--success)' },
+    { label: 'Rejected', num: counts.rejected, color: 'var(--danger)' },
+  ].map(s => `<div class="mod-stat"><div class="mod-stat-num" style="color:${s.color}">${s.num}</div><div class="mod-stat-label">${s.label}</div></div>`).join('');
+}
+
+function modRenderReports(reports) {
+  modRenderStats(modReportsCache);
+
+  if (reports.length === 0) {
+    document.getElementById('mod-table-container').innerHTML =
+      '<div class="mod-empty">' + (modReportsCache.length ? 'No reports match your search.' : 'No reports submitted yet.') + '</div>';
+    return;
+  }
+
+  const statusOptions = ['pending','reviewed','escalated','resolved','rejected'];
+
+  const rows = reports.map(r => {
+    const evCount = (r.evidence || []).filter(e => e && e.cid).length;
+    const catLabel = CATEGORY_LABELS[r.category] || r.category || '—';
+
+    const selectHtml = `<select class="mod-status-select" data-id="${escapeHtml(r.id)}" onchange="modUpdateStatus(this)">
+      ${statusOptions.map(s => `<option value="${s}" ${s === r.status ? 'selected' : ''}>${s}</option>`).join('')}
+    </select>`;
+
+    const date = new Date(r.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+    const notesDot = r.moderator_notes ? '<span class="mod-has-notes" title="Has internal notes"></span>' : '';
+
+    return `<tr>
+      <td>
+        <span class="mod-id">${escapeHtml(r.id.slice(0,8).toUpperCase())}</span>${notesDot}
+        <br><button class="mod-view-btn" data-id="${r.id}" onclick="modOpenDetail(this.dataset.id)">View</button>
+      </td>
+      <td>${escapeHtml(catLabel)}</td>
+      <td>${escapeHtml(r.department || '—')}</td>
+      <td>${escapeHtml(r.location || '—')}</td>
+      <td><div class="mod-desc">${escapeHtml(r.description || '—')}</div></td>
+      <td>${evCount ? evCount + ' file' + (evCount > 1 ? 's' : '') : '—'}</td>
+      <td>${selectHtml}</td>
+      <td style="font-family:var(--ff-mono);font-size:10px;color:var(--muted);white-space:nowrap;">${date}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('mod-table-container').innerHTML = `
+    <div class="mod-table-wrap">
+      <table class="mod-table">
+        <thead><tr>
+          <th>ID</th><th>Category</th><th>Dept</th><th>Location</th><th>Description</th><th>Evidence</th><th>Status</th><th>Filed</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+async function modUpdateStatus(selectEl) {
+  const id = selectEl.dataset.id;
+  const newStatus = selectEl.value;
+  selectEl.classList.add('saving');
+
+  try {
+    const res = await fetch(API + '/admin/reports/' + id, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', ...modAuthHeaders() },
+      body: JSON.stringify({ status: newStatus }),
+    });
+    if (!res.ok) throw new Error('Update failed');
+    modShowToast('Status updated to ' + newStatus.toUpperCase());
+    await modLoadReports();
+    if (modDetailId === id) modOpenDetail(id);
+  } catch (e) {
+    modShowToast('Error: ' + e.message);
+    modLoadReports();
+  } finally {
+    selectEl.classList.remove('saving');
+  }
+}
+
+async function modOpenDetail(id) {
+  modDetailId = id;
+  const body = document.getElementById('mod-detail-body');
+  body.innerHTML = '<div class="mod-loading">Loading…</div>';
+  document.getElementById('mod-overlay').classList.add('open');
+  document.getElementById('mod-detail-title').textContent = 'Report #' + id.slice(0, 8).toUpperCase();
+
+  try {
+    const res = await fetch(API + '/admin/reports/' + id, { headers: modAuthHeaders() });
+    if (res.status === 401) { modLogout(); return; }
+    if (!res.ok) throw new Error('Could not load report');
+    const r = await res.json();
+    modRenderDetail(r);
+  } catch (e) {
+    body.innerHTML = '<div class="mod-empty">' + escapeHtml(e.message) + '</div>';
+  }
+}
+
+function modRenderDetail(r) {
+  const statusOptions = ['pending','reviewed','escalated','resolved','rejected'];
+  const catLabel = CATEGORY_LABELS[r.category] || r.category || '—';
+  const filed = new Date(r.created_at).toLocaleString('en-IN', { day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+  const evidenceHtml = (r.evidence || []).filter(e => e && e.cid).map(e => `
+    <div class="mod-evidence-item">
+      <div><strong>${escapeHtml(e.type || 'file')}</strong></div>
+      <a href="https://ipfs.io/ipfs/${escapeHtml(e.cid)}" target="_blank" rel="noopener">${escapeHtml(e.cid)}</a>
+      <div class="mod-evidence-hash">SHA-256: ${escapeHtml(e.hash)}</div>
+    </div>`).join('') || '<p style="color:var(--muted);font-size:12px;">No evidence attached.</p>';
+
+  document.getElementById('mod-detail-body').innerHTML = `
+    <div class="mod-detail-grid">
+      <div class="mod-detail-field"><label>Category</label><span>${escapeHtml(catLabel)}</span></div>
+      <div class="mod-detail-field"><label>Status</label><span class="status-badge ${escapeHtml(r.status)}">${escapeHtml(r.status)}</span></div>
+      <div class="mod-detail-field"><label>Department</label><span>${escapeHtml(r.department || '—')}</span></div>
+      <div class="mod-detail-field"><label>Location</label><span>${escapeHtml(r.location || '—')}</span></div>
+      <div class="mod-detail-field"><label>Incident date</label><span>${escapeHtml(r.incident_date || '—')}</span></div>
+      <div class="mod-detail-field"><label>Filed on</label><span>${escapeHtml(filed)}</span></div>
+      <div class="mod-detail-field full"><label>Reporter token</label><span class="mod-token">${escapeHtml(r.token)}</span></div>
+      <div class="mod-detail-field full"><label>Description</label><div class="mod-detail-desc">${escapeHtml(r.description || '—')}</div></div>
+      <div class="mod-detail-field full"><label>Evidence (${(r.evidence||[]).filter(e=>e&&e.cid).length})</label><div class="mod-evidence-list">${evidenceHtml}</div></div>
+      <div class="mod-detail-field full mod-detail-notes">
+        <label>Internal notes <span style="color:var(--muted);text-transform:none;letter-spacing:0;">(not visible to reporter)</span></label>
+        <textarea id="mod-detail-notes-input" placeholder="Add investigation notes, escalation details, follow-up actions…">${escapeHtml(r.moderator_notes || '')}</textarea>
+      </div>
+    </div>
+    <div class="mod-detail-actions">
+      <select id="mod-detail-status">
+        ${statusOptions.map(s => `<option value="${s}" ${s === r.status ? 'selected' : ''}>${s}</option>`).join('')}
+      </select>
+      <button class="btn-primary" style="font-size:14px;padding:10px 20px;" onclick="modSaveDetail()">
+        <i class="ti ti-device-floppy" aria-hidden="true"></i> Save changes
+      </button>
+      <button class="btn-secondary" onclick="modCloseDetail()">Close</button>
+    </div>`;
+}
+
+function modCloseDetail() {
+  modDetailId = null;
+  document.getElementById('mod-overlay').classList.remove('open');
+}
+
+async function modSaveDetail() {
+  if (!modDetailId) return;
+  const status = document.getElementById('mod-detail-status').value;
+  const moderator_notes = document.getElementById('mod-detail-notes-input').value;
+
+  try {
+    const res = await fetch(API + '/admin/reports/' + modDetailId, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', ...modAuthHeaders() },
+      body: JSON.stringify({ status, moderator_notes }),
+    });
+    if (!res.ok) throw new Error('Save failed');
+    modShowToast('Report updated');
+    await modLoadReports();
+    modOpenDetail(modDetailId);
+  } catch (e) {
+    modShowToast('Error: ' + e.message);
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') modCloseDetail();
+});
+
+initRouting();
 </script>
+
+</body>
+</html>
