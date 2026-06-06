@@ -113,7 +113,11 @@ async function uploadToPinata(buffer, filename, mimetype) {
     body: form,
   });
 
-  if (!res.ok) throw new Error(`Pinata upload failed: ${res.statusText}`);
+  if (!res.ok) {
+    const errBody = await res.text().catch(() => "");
+    console.error("Pinata upload failed:", res.status, errBody);
+    throw new Error(`Pinata upload failed: ${res.statusText}`);
+  }
   const data = await res.json();
   return data.IpfsHash; // the CID
 }

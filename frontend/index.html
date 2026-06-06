@@ -1130,7 +1130,16 @@
 
 <script>
 const API = 'https://vigilance-api.onrender.com';
+// Files are pinned via Pinata — their gateway serves pinned content reliably (ipfs.io often 502s)
+const IPFS_GATEWAYS = [
+  'https://gateway.pinata.cloud/ipfs/',
+  'https://dweb.link/ipfs/',
+];
 const PUBLIC_PAGES = ['report', 'track', 'about'];
+
+function ipfsUrl(cid, gatewayIndex = 0) {
+  return IPFS_GATEWAYS[gatewayIndex] + cid;
+}
 let selectedFiles = [];
 let currentToken = null;
 
@@ -1310,7 +1319,8 @@ function renderTrackResult(d) {
   const evRows = (d.evidence||[]).filter(e=>e&&e.cid).map(e=>`
     <div class="evidence-cid">
       <i class="ti ti-file-check" aria-hidden="true"></i>
-      <a href="https://ipfs.io/ipfs/${e.cid}" target="_blank" rel="noopener">${e.cid}</a>
+      <a href="${ipfsUrl(e.cid)}" target="_blank" rel="noopener">View evidence</a>
+      <span style="color:var(--muted);font-size:9px;margin-left:6px;">${e.cid.slice(0,14)}…</span>
     </div>`).join('');
 
   document.getElementById('track-result').innerHTML = `
@@ -1598,7 +1608,11 @@ function modRenderDetail(r) {
   const evidenceHtml = (r.evidence || []).filter(e => e && e.cid).map(e => `
     <div class="mod-evidence-item">
       <div><strong>${escapeHtml(e.type || 'file')}</strong></div>
-      <a href="https://ipfs.io/ipfs/${escapeHtml(e.cid)}" target="_blank" rel="noopener">${escapeHtml(e.cid)}</a>
+      <div style="margin:6px 0;display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="${ipfsUrl(e.cid)}" target="_blank" rel="noopener" class="mod-evidence-link">View file</a>
+        <a href="${ipfsUrl(e.cid, 1)}" target="_blank" rel="noopener" class="mod-evidence-link" style="color:var(--muted);">Alt gateway</a>
+      </div>
+      <div class="mod-evidence-hash">CID: ${escapeHtml(e.cid)}</div>
       <div class="mod-evidence-hash">SHA-256: ${escapeHtml(e.hash)}</div>
     </div>`).join('') || '<p style="color:var(--muted);font-size:12px;">No evidence attached.</p>';
 
