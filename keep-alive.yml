@@ -1,0 +1,21 @@
+name: Keep Alive — Ping Vigilance API
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # every 10 minutes, same as before
+  workflow_dispatch:          # lets you trigger it manually from GitHub UI too
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping API health endpoint
+        run: |
+          echo "Pinging ${{ secrets.API_URL }}"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL }}/health")
+          echo "Response status: $STATUS"
+          if [ "$STATUS" -ne 200 ]; then
+            echo "Warning: API returned status $STATUS"
+          else
+            echo "API is alive!"
+          fi
