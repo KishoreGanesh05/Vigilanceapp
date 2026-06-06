@@ -21,7 +21,10 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejec
 
 // ─── Middleware ────────────────────────────────────────────────────────────
 app.use(helmet());
-app.use(cors({ origin: process.env.CORS_ORIGIN || "*" }));
+
+// Strip trailing slash — browser Origin never includes one; mismatch breaks CORS
+const corsOrigin = process.env.CORS_ORIGIN?.replace(/\/$/, "") || "*";
+app.use(cors({ origin: corsOrigin }));
 app.use(express.json());
 
 // Multer — store uploads in memory only (never write to Render disk)

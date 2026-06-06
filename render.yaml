@@ -24,7 +24,7 @@ services:
       - key: PINATA_SECRET_KEY
         sync: false
       - key: CORS_ORIGIN
-        sync: false                  # set to your frontend URL after deploy
+        sync: false                  # frontend URL, no trailing slash (e.g. https://vigilance-frontend.onrender.com)
       - key: MODERATOR_SECRET
         sync: false                  # your moderator dashboard password — set in Render dashboard
     healthCheckPath: /health
